@@ -7,14 +7,14 @@ def getIP(domain):
 
 def getNS(domain):
     nsArr = []
-    for x in dns.resolver.resolve(domain, 'NS'):
+    for x in dns.resolver.resolve(domain.strip(), 'NS'):
         nsArr.append(x.to_text())
     return nsArr
 
 def getMX(domain):
     mxArr = []
-    for x in dns.resolver.resolve(domain, 'NS'):
-        mxArr.append(x.to_text())
+    for x in dns.resolver.resolve(domain.strip(), 'MX'):
+        mxArr.append(x.to_text().split(" ")[1])
     return mxArr
 
 def getASN(ip):
@@ -30,16 +30,17 @@ def getCountry(ip):
         return reader.country(ip).country.iso_code
     
 def getDomainInfo(domain):
+    ip = getIP(domain)
     obj = {
-        "domain": "",
-        "ip": "",
-        "asn": "",
-        "org": "",
-        "country_code": "",
-        "ns": [],
-        "mx": []
+        "domain": domain.strip(),
+        "ip": ip,
+        "asn": getASN(ip),
+        "org": getOrg(ip),
+        "country_code": getCountry(ip),
+        "ns": getNS(domain),
+        "mx": getMX(domain)
     }
 
-    
+
 
     return obj
