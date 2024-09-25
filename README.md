@@ -1,4 +1,4 @@
-# 🌐 DomainInfo
+# 🌐 pyDomainInfo
 
 Este módulo permite obtener información detallada sobre un dominio específico en Internet.
 
